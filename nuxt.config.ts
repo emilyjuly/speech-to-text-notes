@@ -2,7 +2,8 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    'nuxt-primevue'
+    'nuxt-primevue',
+    '@pinia/nuxt',
   ],
   css: [
     'primeflex/primeflex.css'
