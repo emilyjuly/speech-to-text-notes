@@ -1,20 +1,33 @@
 <template>
     <div class="editor-container">
-        <Editor v-model="result" editorStyle="height: 300px;" class="editor" />
+        <Editor v-model="result" editorStyle="height: 320px">
+            <template v-slot:toolbar>
+                <span class="ql-formats editor">
+                    <button v-tooltip.bottom="'Bold'" class="ql-bold"></button>
+                    <button v-tooltip.bottom="'Italic'" class="ql-italic"></button>
+                    <button v-tooltip.bottom="'Underline'" class="ql-underline"></button>
+                </span>
+            </template>
+        </Editor>
         <div class="mt-5 flex justify-content-center">
-            <Button size="large" rounded icon="pi pi-microphone" @click="startRecording" aria-label="Submit" class="mr-3 gradient gradient-btn" :class="{ 'listening': isListening }" />
-            <Button size="large" rounded icon="pi pi-stop" @click="stopRecording" aria-label="Submit" class="mr-3 gradient-btn" />
-            <Button size="large" rounded icon="pi pi-download" @click="downloadText" aria-label="Submit" class="mr-3 gradient-btn" />
-            <Button size="large" rounded icon="pi pi-trash" @click="clearText" aria-label="Submit" class="mr-3 gradient-btn" />
-            <Button size="large" rounded icon="pi pi-send" @click="createNote" aria-label="Submit" class="gradient-btn" />
+            <Button size="large" rounded icon="pi pi-microphone" @click="startRecording" aria-label="Submit"
+                    class="mr-3 gradient gradient-btn" :class="{ 'listening': isListening }"/>
+            <Button size="large" rounded icon="pi pi-stop" @click="stopRecording" aria-label="Submit"
+                    class="mr-3 gradient-btn"/>
+            <Button size="large" rounded icon="pi pi-trash" @click="clearText" aria-label="Submit"
+                    class="mr-3 gradient-btn"/>
+            <Button size="large" rounded icon="pi pi-send" @click="createNote" aria-label="Submit"
+                    class="gradient-btn"/>
         </div>
     </div>
 </template>
 
 <script setup>
-import { useSpeechRecognition } from '@vueuse/core'
-import Editor from 'primevue/editor';
-import { useNotesStore } from '../store/notes.ts'
+import {useSpeechRecognition} from '@vueuse/core'
+import Editor from 'primevue/editor'
+import {useNotesStore} from '../store/notes.ts'
+import {v4 as uuidv4} from 'uuid'
+import moment from 'moment'
 
 const {
     isSupported,
@@ -38,24 +51,18 @@ const stopRecording = () => {
     stop();
 };
 
-const downloadText = () => {
-    const filename = "speech.txt";
-    let element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(result.value));
-    element.setAttribute('download', filename);
-    element.style.display = 'none';
-    document.body.appendChild(element);
-    element.click();
-    document.body.removeChild(element);
-};
-
 const clearText = () => {
     stop();
     result.value = ''
 };
 
 const createNote = () => {
-    store.createNote(result.value)
+    const note = {
+        id: uuidv4().slice(0, 4),
+        text: result.value,
+        date: moment(new Date()).format('DD/MM/YYYY - HH:mm')
+    }
+    store.createNote(note)
     result.value = ''
 }
 
@@ -80,13 +87,14 @@ const createNote = () => {
         box-shadow: 0 0 10px 5px #b5fbf9;
     }
 }
+
 .editor {
-    width:  40vw;
+    width: 40vw;
 }
 
 @media (max-width: 500px) {
     .editor {
-        width:  90vw;
+        width: 90vw;
     }
 }
 </style>
