@@ -3,7 +3,7 @@
         <Menubar :model="items">
             <template #start>
                 <div class="flex align-items-center">
-                    <Image src="/favicon.ico" alt="postit" width="40px" class="mr-2" />
+                    <Image src="/favicon.ico" alt="postit" width="30px" class="mr-2 logo" />
                     <h1 class="title">Notes</h1>
                 </div>
             </template>
@@ -23,7 +23,6 @@
             <template #end>
                 <div class="flex align-items-center gap-2">
                     <InputText placeholder="Search" type="text" class="w-8rem sm:w-auto"/>
-                    <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" shape="circle"/>
                 </div>
             </template>
         </Menubar>
@@ -91,3 +90,8 @@ const items = ref([
     }
 ]);
 </script>
+
+<style scoped>
+@media (max-width: 500px) {
+}
+</style>

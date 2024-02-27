@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-column">
-        <Editor v-model="result" editorStyle="height: 300px;" />
+    <div class="editor-container">
+        <Editor v-model="result" editorStyle="height: 300px;" class="editor" />
         <div class="mt-5 flex justify-content-center">
             <Button size="large" rounded icon="pi pi-microphone" @click="startRecording" aria-label="Submit" class="mr-3 gradient gradient-btn" :class="{ 'listening': isListening }" />
             <Button size="large" rounded icon="pi pi-stop" @click="stopRecording" aria-label="Submit" class="mr-3 gradient-btn" />
@@ -67,12 +67,26 @@ const createNote = () => {
     animation: pulse 2s infinite;
 }
 
+.editor-container {
+    display: flex;
+    flex-direction: column;
+}
+
 @keyframes pulse {
     50% {
         box-shadow: 0 0 10px 5px #25b2ae;
     }
     100% {
         box-shadow: 0 0 10px 5px #b5fbf9;
+    }
+}
+.editor {
+    width:  40vw;
+}
+
+@media (max-width: 500px) {
+    .editor {
+        width:  90vw;
     }
 }
 </style>
