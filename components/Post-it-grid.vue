@@ -184,7 +184,8 @@ const downloadText = (note) => {
 
 @media (max-width: 500px) {
     .my-grid {
-        display: grid;
+        display: flex;
+        flex-direction: column;
         justify-items: center;
         grid-template-columns: repeat(2, 1fr);
         grid-row-gap: 0;
