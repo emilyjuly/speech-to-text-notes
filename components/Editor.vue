@@ -1,6 +1,6 @@
 <template>
     <div class="editor-container">
-        <Editor v-model="result" editorStyle="height: 320px;">
+        <Editor v-model="result" editorStyle="height: 320px; width: 800px;">
             <template v-slot:toolbar>
                 <span class="ql-formats editor">
                     <button v-tooltip.bottom="'Bold'" class="ql-bold"></button>
