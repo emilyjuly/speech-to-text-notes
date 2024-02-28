@@ -88,7 +88,7 @@ const showSelectTagDialog = (index) => {
 }
 
 const saveEdit = () => {
-    store.notes[addTagIndex.value].text = editedNoteText.value
+    store.notes[editIndex.value].text = editedNoteText.value
     visible.value = false
 }
 const saveTag = () => {
