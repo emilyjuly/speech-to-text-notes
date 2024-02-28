@@ -2,7 +2,7 @@
     <NuxtPage />
 </template>
 <script>
-import 'primevue/resources/themes/lara-dark-purple/theme.css'
+import 'primevue/resources/themes/lara-light-purple/theme.css'
 import 'primeicons/primeicons.css'
 </script>
 
@@ -13,6 +13,8 @@ body {
     padding: 0;
     margin: 0;
     text-decoration: none;
+    background-color: #35214f;
+    color: white;
 }
 
 .gradient-btn {

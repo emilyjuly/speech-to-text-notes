@@ -1,6 +1,6 @@
 <template>
     <div class="editor-container">
-        <Editor v-model="result" editorStyle="height: 320px">
+        <Editor v-model="result" editorStyle="height: 320px;">
             <template v-slot:toolbar>
                 <span class="ql-formats editor">
                     <button v-tooltip.bottom="'Bold'" class="ql-bold"></button>
@@ -60,7 +60,11 @@ const createNote = () => {
     const note = {
         id: uuidv4().slice(0, 4),
         text: result.value,
-        date: moment(new Date()).format('DD/MM/YYYY - HH:mm')
+        date: moment(new Date()).format('DD/MM/YYYY - HH:mm'),
+        tag: {
+            severity: 'primary',
+            label: 'Novo',
+        },
     }
     store.createNote(note)
     result.value = ''

@@ -6,6 +6,7 @@ export interface Notes {
             id: number,
             text: string,
             date: string,
+            tag: {},
         }
     ]
 }
