@@ -1,6 +1,6 @@
 # <img src="https://github.com/emilyjuly/speech-to-text-notes/assets/87674883/67ac9ac5-7d50-439c-a9d5-b4f1f818e1eb" width="30px"/> Speech to text notes 
 
-<code>Esse projeto foi feito com o intuito de utilizar transcição de voz, e para a prática do uso do framework Vue 3, junto ao Nuxt e Prime vue. Para contribuir com minha prática de frontend, e conhecer alguns dos componentes que o Prime vue fornece.</code>
+<code>Esse projeto foi feito com o intuito de utilizar reconhecimento de voz, e para a prática do uso do framework Vue 3, junto ao Nuxt e Prime vue. Para contribuir com minha prática de frontend, e conhecer alguns dos componentes que o Prime vue fornece.</code>
 
 <img src="https://cdn-icons-png.flaticon.com/128/3953/3953226.png" width="20px"/> Funcionamento:
 - Criar nota, a partir de digitação ou transcição de voz
