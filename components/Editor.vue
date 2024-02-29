@@ -1,6 +1,6 @@
 <template>
     <div class="editor-container">
-        <Editor v-model="result" editorStyle="height: 320px; width: 800px;">
+        <Editor v-model="result" editor-style="height: 320px" class="editor" >
             <template v-slot:toolbar>
                 <span class="ql-formats editor">
                     <button v-tooltip.bottom="'Bold'" class="ql-bold"></button>
@@ -11,14 +11,15 @@
         </Editor>
         <div class="mt-5 flex justify-content-center">
             <Button size="large" rounded icon="pi pi-microphone" @click="startRecording" aria-label="Submit"
-                    class="mr-3 gradient gradient-btn" :class="{ 'listening': isListening }"/>
+                    class="mr-3 gradient gradient-btn" :class="{ 'listening': isListening }" v-tooltip.top="'Gravar voz'" />
             <Button size="large" rounded icon="pi pi-stop" @click="stopRecording" aria-label="Submit"
-                    class="mr-3 gradient-btn"/>
+                    class="mr-3 gradient-btn" v-tooltip.top="'Parar gravação'" />
             <Button size="large" rounded icon="pi pi-trash" @click="clearText" aria-label="Submit"
-                    class="mr-3 gradient-btn"/>
-            <Button size="large" rounded icon="pi pi-send" @click="createNote" aria-label="Submit"
-                    class="gradient-btn"/>
+                    class="mr-3 gradient-btn" v-tooltip.top="'Limpar'" />
+            <Button size="large" rounded icon="pi pi-save" @click="createNote" aria-label="Submit"
+                    class="gradient-btn" v-tooltip.top="'Salvar'" />
         </div>
+        <MeterGroup :value="value" orientation="vertical" labelOrientation="vertical" v-if="store.notes.length > 0" class="meter" />
     </div>
 </template>
 
@@ -43,6 +44,32 @@ const {
 })
 
 const store = useNotesStore()
+
+const value = ref([
+    { label: 'Novo', color: '#8B5CF6', value: getValue('Novo') },
+    { label: 'Padrão', color: '#64748B', value: getValue('Padrão') },
+    { label: 'Em dia', color: '#22C55E', value: getValue('Em dia') },
+    { label: 'Futuro', color: '#0ea5e9', value: getValue('Futuro') },
+    { label: 'Para hoje', color: '#f97316', value: getValue('Para hoje') },
+    { label: 'Urgente', color: '#EF4444', value: getValue('Urgente') },
+    { label: 'Rejeitado', color: '#1f2937', value: getValue('Rejeitado') }
+]);
+
+function getValue(label) {
+    const notes = store.notes.filter((note) => note.tag.label === label)
+    return notes.length
+}
+
+
+const watchNotes = watch(() => store.notes, (newNotes, oldNotes) => {
+    value.value.forEach((item) => {
+        item.value = getValue(item.label);
+    });
+}, { deep: true });
+
+onBeforeUnmount(() => {
+    watchNotes();
+});
 const startRecording = () => {
     start()
 };
@@ -81,6 +108,16 @@ const createNote = () => {
 .editor-container {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    height: 45vh;
+}
+
+.editor {
+    width: 40vw;
+}
+
+.meter {
+    margin-top: 10px;
 }
 
 @keyframes pulse {
@@ -92,13 +129,17 @@ const createNote = () => {
     }
 }
 
-.editor {
-    width: 40vw;
-}
-
 @media (max-width: 500px) {
     .editor {
         width: 90vw;
+    }
+
+    .editor-container {
+        height: 75vh;
+    }
+
+    .meter {
+        font-size: 13px
     }
 }
 </style>
