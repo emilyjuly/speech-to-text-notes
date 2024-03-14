@@ -13,13 +13,14 @@ body {
     padding: 0;
     margin: 0;
     text-decoration: none;
-    background-color: #35214f;
+    background-color: #a46bf2;
     color: white;
 }
 
 .gradient-btn {
     background: linear-gradient(90deg, rgba(148,107,218,1) 0%, rgb(171, 88, 223) 46%, rgba(53,162,164,1) 100%);
     color: white;
+    border: 1px solid white;
 }
 
 .title {
