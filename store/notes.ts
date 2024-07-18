@@ -34,5 +34,20 @@ export const useNotesStore = defineStore('notes', {
         }
       }
     },
+
+    saveToLocalStorage(key: string, value: string): void {
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem(key, value);
+      }
+    },
+
+    loadFromLocalStorage(
+      key: string,
+      defaultValue: string,
+    ): string | undefined {
+      if (typeof localStorage !== 'undefined') {
+        return localStorage.getItem(key) || defaultValue;
+      }
+    },
   },
 });

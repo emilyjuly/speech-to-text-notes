@@ -54,9 +54,9 @@
                     #{{ selectedColor }}
                     <div :style="{ 'background-color': `#${selectedColor}` }" style=" width: 15px; height: 15px; border-radius: 50%" class="ml-2"></div>
                 </div>
-                <div class="flex align-items-center">
-                    Padrão #ddbff9
-                    <div @click="selectedColor = 'ddbff9'" style="background-color: #ddbff9; width: 15px; height: 15px; border-radius: 50%" class="ml-2 cursor-pointer"></div>
+                <div style="cursor: pointer; text-decoration: underline;" class="flex align-items-center" @click="selectedColor = '374151'">
+                    Redefinir cor
+                    <div style="background-color: #374151; width: 15px; height: 15px; border-radius: 50%" class="ml-2 cursor-pointer"></div>
                 </div>
                 <Divider />
                 <span>Altere o tamanho da fonte das notas</span>
@@ -96,8 +96,8 @@ const visibleTag = ref(false)
 const editIndex = ref()
 const addTagIndex = ref()
 const editedNoteText = ref('')
-const selectedColor = ref('374151')
-const selectedColorFont = ref('white')
+const selectedColor = ref(store.loadFromLocalStorage('selectedColor', '374151'));
+const selectedColorFont = ref(store.loadFromLocalStorage('selectedColorFont', 'white'));
 const value = ref(20)
 const tagOptions = [
     { severity: "primary", label: "Novo" },
@@ -111,17 +111,25 @@ const tagOptions = [
 const selectedTag = ref(null)
 const op = ref()
 
-const toggle = (event) => {
+watch(selectedColor, (newColor) => {
+    store.saveToLocalStorage('selectedColor', newColor);
+});
+
+watch(selectedColorFont, (newColor) => {
+    store.saveToLocalStorage('selectedColorFont', newColor);
+});
+
+const toggle = (event: Event) => {
     op.value.toggle(event)
 }
 
-const showEditDialog = (index) => {
+const showEditDialog = (index: number) => {
     editedNoteText.value = store.notes[index].text
     visible.value = true
     editIndex.value = index
 }
 
-const showSelectTagDialog = (index) => {
+const showSelectTagDialog = (index: number) => {
     visibleTag.value = true
     addTagIndex.value = index
 }
@@ -130,13 +138,14 @@ const saveEdit = () => {
     store.notes[editIndex.value].text = editedNoteText.value
     visible.value = false
 }
+
 const saveTag = () => {
     const label = tagOptions.find((tag) => tag.severity === selectedTag.value)
-    store.notes[addTagIndex.value].tag = { severity: selectedTag.value, label: label.label }
+    store.notes[addTagIndex.value].tag = { severity: selectedTag.value, label: label && label.label }
     visibleTag.value = false
 }
 
-const downloadText = (note) => {
+const downloadText = (note: string) => {
     const filename = "speech.txt";
 
     const tempDiv = document.createElement('div');
