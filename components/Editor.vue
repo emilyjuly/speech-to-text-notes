@@ -1,6 +1,6 @@
 <template>
     <div class="editor-container">
-        <Editor v-model="result" editor-style="height: 320px" class="editor" >
+        <Editor v-model="result" editor-style="height: 320px" class="editor">
             <template v-slot:toolbar>
                 <span class="ql-formats editor">
                     <button v-tooltip.bottom="'Bold'" class="ql-bold"></button>
@@ -10,24 +10,20 @@
             </template>
         </Editor>
         <div class="mt-5 flex justify-content-center">
-            <Button size="large" rounded icon="pi pi-microphone" @click="startRecording" aria-label="Submit"
-                    class="mr-3 gradient gradient-btn" :class="{ 'listening': isListening }" v-tooltip.top="'Gravar voz'" />
-            <Button size="large" rounded icon="pi pi-stop" @click="stopRecording" aria-label="Submit"
-                    class="mr-3 gradient-btn" v-tooltip.top="'Parar gravação'" />
-            <Button size="large" rounded icon="pi pi-trash" @click="clearText" aria-label="Submit"
-                    class="mr-3 gradient-btn" v-tooltip.top="'Limpar'" />
-            <Button size="large" rounded icon="pi pi-save" @click="createNote" aria-label="Submit"
-                    class="gradient-btn" v-tooltip.top="'Salvar'" />
+            <Button size="large" rounded icon="pi pi-microphone" @click="startRecording" aria-label="Submit" class="mr-3 gradient gradient-btn" :class="{ 'listening': isListening }" v-tooltip.top="'Gravar voz'" />
+            <Button size="large" rounded icon="pi pi-stop" @click="stopRecording" aria-label="Submit" class="mr-3 gradient-btn" v-tooltip.top="'Parar gravação'" />
+            <Button size="large" rounded icon="pi pi-trash" @click="clearText" aria-label="Submit" class="mr-3 gradient-btn" v-tooltip.top="'Limpar'" />
+            <Button size="large" rounded icon="pi pi-save" @click="createNote" aria-label="Submit" class="gradient-btn" v-tooltip.top="'Salvar'" />
         </div>
         <MeterGroup :value="value" orientation="vertical" labelOrientation="vertical" v-if="store.notes.length > 0" class="meter" />
     </div>
 </template>
 
 <script setup>
-import {useSpeechRecognition} from '@vueuse/core'
+import { useSpeechRecognition } from '@vueuse/core'
 import Editor from 'primevue/editor'
-import {useNotesStore} from '../store/notes.ts'
-import {v4 as uuidv4} from 'uuid'
+import { useNotesStore } from '../store/notes.ts'
+import { v4 as uuidv4 } from 'uuid'
 import moment from 'moment'
 
 const {
@@ -124,6 +120,7 @@ const createNote = () => {
     50% {
         box-shadow: 0 0 10px 5px #25b2ae;
     }
+
     100% {
         box-shadow: 0 0 10px 5px #b5fbf9;
     }

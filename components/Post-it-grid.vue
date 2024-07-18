@@ -1,34 +1,24 @@
 <template>
     <div class="container-grid">
-        <div class="flex justify-content-end ml-5" >
-            <Button icon="pi pi-cog" type="button" @click="toggle" text class="text-white" rounded
-                    v-if="store.notes.length > 0"/>
+        <div class="flex justify-content-end ml-5">
+            <Button icon="pi pi-cog" type="button" @click="toggle" text class="text-white" rounded v-if="store.notes.length > 0" />
         </div>
         <div class="my-grid">
-            <div v-if="store.notes.length > 0" v-for="(note, index) in store.notes" :key="index" class="post-it"
-                 :style="{ 'background-color': `#${selectedColor}` }">
+            <div v-if="store.notes.length > 0" v-for="(note, index) in store.notes" :key="index" class="post-it" :style="{ 'background-color': `#${selectedColor}` }">
                 <div class="flex align-items-center justify-content-between">
-                <span style="font-size: 12px; color: #565656;">
-                    #{{ (note.id).toUpperCase() }} - {{ note.date }}
-                </span>
+                    <span style="font-size: 12px;">
+                        #{{ (note.id).toUpperCase() }} - {{ note.date }}
+                    </span>
                     <span v-if="note.tag">
-                    <Tag :severity="note.tag.severity" :value="note.tag.label" v-tooltip.top="'Editar tag'"
-                         class="cursor-pointer" @click="showSelectTagDialog(index)"></Tag>
-                </span>
+                        <Tag :severity="note.tag.severity" :value="note.tag.label" v-tooltip.top="'Editar tag'" class="cursor-pointer" @click="showSelectTagDialog(index)"></Tag>
+                    </span>
                 </div>
-                <div v-html="note.text" class="note-content"
-                     :style="{ 'font-size': `${value}px`, 'color': `${selectedColorFont}` }"></div>
+                <div v-html="note.text" class="note-content" :style="{ 'font-size': `${value}px`, 'color': `${selectedColorFont}` }"></div>
                 <div class="flex justify-content-between align-items-center">
                     <div class="flex justify-space-between justify-content-end">
-                        <Button size="medium" rounded text class="btn" icon="pi pi-trash"
-                                @click="store.deleteNote(index)"
-                                aria-label="Submit" v-tooltip.top="'Excluir'"/>
-                        <Button size="medium" rounded text class="btn" icon="pi pi-pencil"
-                                @click="showEditDialog(index)"
-                                aria-label="Submit" v-tooltip.top="'Editar'"/>
-                        <Button size="medium" rounded text class="btn" icon="pi pi-download"
-                                @click="downloadText(note.text)"
-                                aria-label="Submit" v-tooltip.top="'Download'"/>
+                        <Button size="medium" rounded text class="btn" icon="pi pi-trash" @click="store.deleteNote(index)" aria-label="Submit" v-tooltip.top="'Excluir'" />
+                        <Button size="medium" rounded text class="btn" icon="pi pi-pencil" @click="showEditDialog(index)" aria-label="Submit" v-tooltip.top="'Editar'" />
+                        <Button size="medium" rounded text class="btn" icon="pi pi-download" @click="downloadText(note.text)" aria-label="Submit" v-tooltip.top="'Download'" />
                     </div>
                 </div>
             </div>
@@ -39,7 +29,7 @@
         <Dialog v-model:visible="visible" modal header="Editar nota" :style="{ width: '50rem' }">
             <span class="p-text-secondary block mb-5">Atualizar informações da nota</span>
             <div class="flex flex-column gap-3 mb-3">
-                <Textarea v-model="editedNoteText" class="flex-auto" autocomplete="off"/>
+                <Textarea v-model="editedNoteText" class="flex-auto" autocomplete="off" />
             </div>
             <div class="flex justify-content-end gap-2">
                 <Button type="button" label="Cancelar" severity="secondary" @click="visible = false"></Button>
@@ -49,14 +39,7 @@
         <Dialog v-model:visible="visibleTag" modal header="Selecionar tag" :style="{ width: '50rem' }">
             <span class="p-text-secondary block mb-5">Classifique sua nota</span>
             <div class="flex flex-column gap-3 mb-3">
-                <Dropdown
-                    id="tagSelect"
-                    v-model="selectedTag"
-                    :options="tagOptions"
-                    option-label="label"
-                    option-value="severity"
-                    placeholder="Selecione a tag"
-                />
+                <Dropdown id="tagSelect" v-model="selectedTag" :options="tagOptions" option-label="label" option-value="severity" placeholder="Selecione a tag" />
             </div>
             <div class="flex justify-content-end gap-2">
                 <Button type="button" label="Cancelar" severity="secondary" @click="visibleTag = false"></Button>
@@ -66,38 +49,31 @@
         <OverlayPanel ref="op">
             <div class="flex flex-column  w-15rem">
                 <span>Altere a cor das notas</span>
-                <ColorPicker v-model="selectedColor" inputId="cp-hex" format="hex" inline/>
+                <ColorPicker v-model="selectedColor" inputId="cp-hex" format="hex" inline />
                 <div class="flex mt-3">
                     #{{ selectedColor }}
-                    <div :style="{ 'background-color': `#${selectedColor}` }"
-                         style=" width: 15px; height: 15px; border-radius: 50%" class="ml-2"></div>
+                    <div :style="{ 'background-color': `#${selectedColor}` }" style=" width: 15px; height: 15px; border-radius: 50%" class="ml-2"></div>
                 </div>
                 <div class="flex align-items-center">
                     Padrão #ddbff9
-                    <div @click="selectedColor = 'ddbff9'"
-                         style="background-color: #ddbff9; width: 15px; height: 15px; border-radius: 50%"
-                         class="ml-2 cursor-pointer"></div>
+                    <div @click="selectedColor = 'ddbff9'" style="background-color: #ddbff9; width: 15px; height: 15px; border-radius: 50%" class="ml-2 cursor-pointer"></div>
                 </div>
-                <Divider/>
+                <Divider />
                 <span>Altere o tamanho da fonte das notas</span>
                 <div class="flex flex-column">
-                    <InputText v-model.number="value" class="w-full mb-3"/>
-                    <Slider v-model="value" class="w-full"/>
+                    <InputText v-model.number="value" class="w-full mb-3" />
+                    <Slider v-model="value" class="w-full" />
                 </div>
-                <Divider/>
+                <Divider />
                 <span>Altere a cor da fonte das notas</span>
                 <div class="flex flex-column">
                     <div class="flex align-items-center">
                         Preto
-                        <div @click="selectedColorFont = 'black'"
-                             style="background-color: black; width: 15px; height: 15px; border-radius: 50%"
-                             class="ml-2 cursor-pointer"></div>
+                        <div @click="selectedColorFont = 'black'" style="background-color: black; width: 15px; height: 15px; border-radius: 50%" class="ml-2 cursor-pointer"></div>
                     </div>
                     <div class="flex align-items-center">
                         Branco
-                        <div @click="selectedColorFont = 'white'"
-                             style="background-color: #e6e5e5; width: 15px; height: 15px; border-radius: 50%"
-                             class="ml-2 cursor-pointer"></div>
+                        <div @click="selectedColorFont = 'white'" style="background-color: #e6e5e5; width: 15px; height: 15px; border-radius: 50%" class="ml-2 cursor-pointer"></div>
                     </div>
                 </div>
             </div>
@@ -107,7 +83,7 @@
 
 <script setup lang="ts">
 import Dialog from "primevue/dialog"
-import {useNotesStore} from "~/store/notes"
+import { useNotesStore } from "~/store/notes"
 import Tag from "primevue/tag"
 import OverlayPanel from 'primevue/overlaypanel'
 import ColorPicker from "primevue/colorpicker"
@@ -120,17 +96,17 @@ const visibleTag = ref(false)
 const editIndex = ref()
 const addTagIndex = ref()
 const editedNoteText = ref('')
-const selectedColor = ref('ddbff9')
-const selectedColorFont = ref('black')
+const selectedColor = ref('374151')
+const selectedColorFont = ref('white')
 const value = ref(20)
 const tagOptions = [
-    {severity: "primary", label: "Novo"},
-    {severity: "secondary", label: "Padrão"},
-    {severity: "success", label: "Em dia"},
-    {severity: "info", label: "Futuro"},
-    {severity: "warning", label: "Para hoje"},
-    {severity: "danger", label: "Urgente"},
-    {severity: "contrast", label: "Rejeitado"},
+    { severity: "primary", label: "Novo" },
+    { severity: "secondary", label: "Padrão" },
+    { severity: "success", label: "Em dia" },
+    { severity: "info", label: "Futuro" },
+    { severity: "warning", label: "Para hoje" },
+    { severity: "danger", label: "Urgente" },
+    { severity: "contrast", label: "Rejeitado" },
 ]
 const selectedTag = ref(null)
 const op = ref()
@@ -156,7 +132,7 @@ const saveEdit = () => {
 }
 const saveTag = () => {
     const label = tagOptions.find((tag) => tag.severity === selectedTag.value)
-    store.notes[addTagIndex.value].tag = {severity: selectedTag.value, label: label.label}
+    store.notes[addTagIndex.value].tag = { severity: selectedTag.value, label: label.label }
     visibleTag.value = false
 }
 
@@ -207,16 +183,14 @@ const downloadText = (note) => {
     width: 90%;
     position: relative;
     border-radius: 5px;
-    background: #ddbff9;
     overflow: hidden;
     margin: 30px auto;
     border-radius: 0 0 0 30px/45px;
     box-shadow: inset 0 -40px 40px rgba(0, 0, 0, 0.2),
-    inset 0 25px 10px rgba(0, 0, 0, 0.2),
-    0 5px 6px 5px rgba(0, 0, 0, 0.2);
+        inset 0 25px 10px rgba(0, 0, 0, 0.2),
+        0 5px 6px 5px rgba(0, 0, 0, 0.2);
     line-height: 1.7em;
     -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
-    color: #130d6b;
 }
 
 .post-it:before {
@@ -225,9 +199,8 @@ const downloadText = (note) => {
     position: absolute;
     width: 20px;
     height: 25px;
-    background: #8c5db8;
     box-shadow: 3px -2px 10px rgba(0, 0, 0, 0.2),
-    inset 15px -15px 15px rgba(0, 0, 0, 0.3);
+        inset 15px -15px 15px rgba(0, 0, 0, 0.3);
     left: 0;
     bottom: 0;
     z-index: 2;
@@ -240,14 +213,9 @@ const downloadText = (note) => {
     position: absolute;
     width: 75%;
     height: 20px;
-    border-top: 3px solid #130d6b;
     border-radius: 50%;
     bottom: 0;
     left: 10%;
-}
-
-.btn {
-    color: #130d6b;
 }
 
 @media (max-width: 500px) {

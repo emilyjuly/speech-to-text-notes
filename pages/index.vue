@@ -1,22 +1,26 @@
 <template>
     <div class="flex flex-column">
-        <menubar class="mb-5"/>
+        <menubar class="mb-5" />
         <div class="container">
-            <editor/>
-            <post-it-grid/>
+            <editor />
+            <post-it-grid />
         </div>
     </div>
 </template>
 
 
 <script setup>
+import { useNotesStore } from '../store/notes.ts'
+
+const store = useNotesStore()
+store.loadNotes()
 </script>
 
 <style scoped>
 .container {
     display: flex;
     justify-content: space-around;
-    padding:10px;
+    padding: 10px;
 }
 
 @media (max-width: 500px) {

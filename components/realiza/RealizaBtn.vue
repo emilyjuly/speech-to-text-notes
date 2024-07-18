@@ -1,16 +1,21 @@
 <template>
     <Button unstyled class="add-btn">
-        <span class="pi pi-plus" style="font-size: 10px;" />
-        <span>CRIAR ATIVIDADE</span>
+        <span :class="[icon]" style="font-size: 12px;" />
+        <span>{{label}}</span>
     </Button>
 </template>
+
+<script setup>
+defineProps({
+    icon: String,
+    label: String
+})
+</script>
 
 <style scoped>
 .add-btn {
     display: flex;
     align-items: center;
-    position: absolute;
-    right: 20px;
     gap: 10px;
     cursor: pointer;
     font-size: 12px;

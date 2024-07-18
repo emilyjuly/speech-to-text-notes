@@ -1,39 +1,40 @@
 <template>
-    <CriarAtividadeBtn @click="visible = true"/>
-    <Dialog v-model:visible="visible" modal :style="{ width: '80vw' }">
-        <template #header>
-            <div class="inline-flex align-items-center justify-content-center gap-2">
-                <strong style="letter-spacing: 0.3px;">ATIVIDADE COOPERADO: EMILY JULY GOMES DOMINGOS</strong>
-            </div>
-        </template>
-        <span class="info-title">Informações da Atividade</span>
-        <div class="info-container">
-            <div class="flex flex-column">
-                <label for="username" style="font-size: 12px">Colaborador</label>
-                <InputText id="username" class="flex-auto" autocomplete="off" size="small" value="Emily July Gomes Domingos" />
-            </div>
-            <div class="flex w-full justify-content-between mt-3">
-                <div class="flex flex-column">
-                    <label for="username" style="font-size: 12px">Tipo</label>
-                    <InputText id="username" class="flex-auto" autocomplete="off" size="small" value="7 - Whatsapp"/>
+    <div class="flex justify-content-end">
+        <RealizaBtn label="CRIAR ATIVIDADE" icon="pi pi-plus" @click="visible = true"/>
+        <Dialog v-model:visible="visible" modal :style="{ width: '80vw' }">
+            <template #header>
+                <div class="inline-flex align-items-center justify-content-center gap-2">
+                    <strong style="letter-spacing: 0.3px;">ATIVIDADE COOPERADO: EMILY JULY GOMES DOMINGOS</strong>
                 </div>
+            </template>
+            <span class="info-title">Informações da Atividade</span>
+            <div class="info-container">
                 <div class="flex flex-column">
-                    <label for="username" style="font-size: 12px">Status</label>
-                    <InputText id="username" class="flex-auto" autocomplete="off" size="small" value="Em aberto" />
+                    <label for="username" style="font-size: 12px">Colaborador</label>
+                    <InputText id="username" class="flex-auto" autocomplete="off" size="small" value="Emily July Gomes Domingos" />
                 </div>
-                <div class="flex flex-column">
-                    <label for="username" style="font-size: 12px">Data e hora</label>
-                    <InputText id="username" class="flex-auto" autocomplete="off" size="small" value="15/04/24 14:00" />
+                <div class="flex w-full justify-content-between mt-3">
+                    <div class="flex flex-column">
+                        <label for="username" style="font-size: 12px">Tipo</label>
+                        <InputText id="username" class="flex-auto" autocomplete="off" size="small" value="7 - Whatsapp"/>
+                    </div>
+                    <div class="flex flex-column">
+                        <label for="username" style="font-size: 12px">Status</label>
+                        <InputText id="username" class="flex-auto" autocomplete="off" size="small" value="Em aberto" />
+                    </div>
+                    <div class="flex flex-column">
+                        <label for="username" style="font-size: 12px">Data e hora</label>
+                        <InputText id="username" class="flex-auto" autocomplete="off" size="small" value="15/04/24 14:00" />
+                    </div>
+                    <div class="flex flex-column">
+                        <label for="username" style="font-size: 12px">Origem</label>
+                        <InputText id="username" class="flex-auto" autocomplete="off" size="small" value="2 - Minhas atividades" />
+                    </div>
                 </div>
-                <div class="flex flex-column">
-                    <label for="username" style="font-size: 12px">Origem</label>
-                    <InputText id="username" class="flex-auto" autocomplete="off" size="small" value="2 - Minhas atividades" />
-                </div>
-            </div>
-            <div class="flex flex-column mt-3">
-                <label for="username" style="font-size: 12px">Descrição da atividade a ser feita</label>
-                <Editor v-model="result" editor-style="height: 320px;">
-                    <template v-slot:toolbar>
+                <div class="flex flex-column mt-3">
+                    <label for="username" style="font-size: 12px">Descrição da atividade a ser feita</label>
+                    <Editor v-model="result" editor-style="height: 320px;">
+                        <template v-slot:toolbar>
                         <span class="ql-formats editor">
                             <button v-tooltip.bottom="'Negrito'" class="ql-bold"></button>
                             <button v-tooltip.bottom="'Italico'" class="ql-italic"></button>
@@ -48,18 +49,19 @@
                                 <span class="pi pi-trash" />
                             </button>
                         </span>
-                    </template>
-                </Editor>
+                        </template>
+                    </Editor>
+                </div>
             </div>
-        </div>
-        <template #footer>
-            <Button label="Salvar" outlined severity="secondary" @click="visible = false" autofocus/>
-        </template>
-    </Dialog>
+            <template #footer>
+                <RealizaBtn label="SALVAR" icon="pi pi-save" @click="visible = false"/>
+            </template>
+        </Dialog>
+    </div>
 </template>
 
 <script setup>
-import CriarAtividadeBtn from "~/components/realiza/CriarAtividadeBtn.vue";
+import RealizaBtn from "~/components/realiza/RealizaBtn.vue";
 import {useSpeechRecognition} from '@vueuse/core';
 import Editor from 'primevue/editor'
 
