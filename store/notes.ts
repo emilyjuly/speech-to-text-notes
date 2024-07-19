@@ -49,5 +49,12 @@ export const useNotesStore = defineStore('notes', {
         return localStorage.getItem(key) || defaultValue;
       }
     },
+
+    updateNoteIndex(id: number, newIndex: number) {
+      const oldIndex = this.notes.findIndex((note) => note.id === id);
+      const [movedItem] = this.notes.splice(oldIndex, 1);
+      this.notes.splice(newIndex, 0, movedItem);
+      this.saveNotes();
+    },
   },
 });

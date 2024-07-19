@@ -43,10 +43,8 @@ const store = useNotesStore()
 
 const value = ref([
     { label: 'Novo', color: '#8B5CF6', value: getValue('Novo') },
-    { label: 'Padrão', color: '#64748B', value: getValue('Padrão') },
-    { label: 'Em dia', color: '#22C55E', value: getValue('Em dia') },
-    { label: 'Futuro', color: '#0ea5e9', value: getValue('Futuro') },
-    { label: 'Para hoje', color: '#f97316', value: getValue('Para hoje') },
+    { label: 'Concluído', color: '#22C55E', value: getValue('Em dia') },
+    { label: 'Em dia', color: '#f97316', value: getValue('Para hoje') },
     { label: 'Urgente', color: '#EF4444', value: getValue('Urgente') },
     { label: 'Rejeitado', color: '#1f2937', value: getValue('Rejeitado') }
 ]);
